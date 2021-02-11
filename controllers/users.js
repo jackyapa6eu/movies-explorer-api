@@ -16,8 +16,8 @@ module.exports.createUser = (req, res, next) => {
       password: hash,
     }))
     .then((user) => {
-      const { _id, email, name } = user;
-      res.send({ data: { _id, email, name } });
+      const { email, name } = user;
+      res.send({ data: { email, name } });
     })
     .catch((error) => {
       if (error.name === 'MongoError' && error.code === 11000) {
@@ -38,7 +38,8 @@ module.exports.getUser = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('User not found.');
       }
-      res.send({ data: user });
+      const { name, email } = user;
+      res.send({ data: { name, email } });
     })
     .catch((error) => {
       if (error.name === 'CastError') {
@@ -64,32 +65,27 @@ module.exports.login = (req, res, next) => {
       );
       res.send({ token });
     })
-    .catch((error) => {
-      if (error.name === 'CastError') {
-        throw new NotFoundError('User not found.');
-      } else {
-        next(error);
-      }
-    })
-    .catch(next);
+    .catch((error) => next(error));
 };
 
-// Исправить изменение данных юзера.
 module.exports.updateUser = (req, res, next) => {
-  const { name, about } = req.body;
-  User.findByIdAndUpdate(req.user._id, { name, about }, {
+  const { name, email } = req.body;
+  User.findByIdAndUpdate(req.user._id, { name, email }, {
     new: true,
     runValidators: true,
     upsert: true,
   })
-    .then((user) => {
-      if (!user) {
+    .then((updatedUser) => {
+      if (!updatedUser) {
         throw new NotFoundError('User not found.');
       }
-      res.send({ data: user });
+      const { name, email } = updatedUser;
+      res.send({ data: { name, email } });
     })
     .catch((error) => {
-      if (error.name === 'ValidationError') {
+      if (error.name === 'MongoError' && error.code === 11000 && error.codeName === 'DuplicateKey') {
+        throw new EmailAlreadyToken('Email already token');
+      } else if (error.name === 'ValidationError') {
         throw new BadRequest(error.message);
       } else if (error.name === 'CastError') {
         throw new NotFoundError('User not found.');
