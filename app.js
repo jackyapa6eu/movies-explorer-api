@@ -2,13 +2,15 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
-// const cors = require('cors');
-const signup = require('./routes/signUp');
+const cors = require('cors');
+const router = require('./routes/index');
+require('dotenv').config();
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, NODE_ENV, DB_CONNECTION_STRING } = process.env;
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { centralErrorHandler } = require('./errors/central-error-handler');
 
-mongoose.connect('mongodb://localhost:27017/moviesExplorer', {
+mongoose.connect(NODE_ENV === 'production' ? DB_CONNECTION_STRING : 'mongodb://localhost:27017/moviesExplorer', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
@@ -20,7 +22,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-/* const whitelist = [
+const whitelist = [
   'https://jackyapa6eu.students.nomoredomains.monster',
   'http://jackyapa6eu.students.nomoredomains.monster',
   'http://localhost:3000',
@@ -36,30 +38,17 @@ const corsOptions = {
   },
 };
 
-app.use(cors(corsOptions)); */
+app.use(cors(corsOptions));
 
 app.use(requestLogger);
 
-app.use('/signup', signup);
-
-require('dotenv').config();
+app.use(router);
 
 app.use(errorLogger);
 
 app.use(errors());
 
-app.use((err, req, res, next) => {
-  const { statusCode = 500, message } = err;
-
-  res
-    .status(statusCode)
-    .send({
-      message: statusCode === 500
-        ? 'На сервере произошла ошибка.'
-        : message,
-    });
-  next();
-});
+app.use(centralErrorHandler);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
