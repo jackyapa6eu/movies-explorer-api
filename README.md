@@ -7,8 +7,8 @@
 
 #Публичный адрес.  
   
-https://api.movies-explorer.jackyapa6eu.students.nomoredomains.monster/signup  
+https://api.movies-explorer.jackyapa6eu.students.nomoredomains.monster
 или  
-http://api.movies-explorer.jackyapa6eu.students.nomoredomains.monster/signup  
+http://api.movies-explorer.jackyapa6eu.students.nomoredomains.monster
   
 
