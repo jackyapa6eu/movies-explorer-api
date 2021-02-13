@@ -16,8 +16,7 @@ module.exports.createUser = (req, res, next) => {
       password: hash,
     }))
     .then((user) => {
-      const { email, name } = user;
-      res.send({ data: { email, name } });
+      res.send({ data: { email: user.email, name: user.name } });
     })
     .catch((error) => {
       if (error.name === 'MongoError' && error.code === 11000) {
@@ -69,18 +68,17 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.updateUser = (req, res, next) => {
-  const { name, email } = req.body;
-  User.findByIdAndUpdate(req.user._id, { name, email }, {
+  const updatedUserData = req.body;
+  User.findByIdAndUpdate(req.user._id, updatedUserData, {
     new: true,
     runValidators: true,
     upsert: true,
   })
-    .then((updatedUser) => {
-      if (!updatedUser) {
+    .then((user) => {
+      if (!user) {
         throw new NotFoundError('User not found.');
       }
-      const { name, email } = updatedUser;
-      res.send({ data: { name, email } });
+      res.send({ data: { name: user.name, email: user.email } });
     })
     .catch((error) => {
       if (error.name === 'MongoError' && error.code === 11000 && error.codeName === 'DuplicateKey') {

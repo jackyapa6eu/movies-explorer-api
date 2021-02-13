@@ -8,15 +8,6 @@
           "_id"
         ]
       }
-    ],
-  "no-shadow": [
-    "error",
-    {
-      "allow": [
-        "email",
-        "name"
-      ]
-    }
-  ]
+    ]
   }
 }
