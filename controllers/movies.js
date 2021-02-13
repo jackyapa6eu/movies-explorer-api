@@ -1,5 +1,6 @@
 const Movie = require('../models/movie');
 const NotFoundError = require('../errors/not-found-err');
+const NotAuthError = require('../errors/not-auth-error');
 const BadRequest = require('../errors/bad-request');
 
 module.exports.addMovie = (req, res, next) => {
@@ -46,7 +47,7 @@ module.exports.deleteMovie = (req, res, next) => {
           })
           .catch(next);
       } else {
-        throw new BadRequest('This movie not yours.');
+        throw new NotAuthError('This movie not yours.');
       }
     })
     .catch(next);

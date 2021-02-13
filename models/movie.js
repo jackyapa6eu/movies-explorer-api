@@ -58,6 +58,10 @@ const movieSchema = new mongoose.Schema({
       message: 'not url.',
     },
   },
+  movieId: {
+    type: Number,
+    required: true,
+  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
