@@ -23,8 +23,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const whitelist = [
-  'https://jackyapa6eu.students.nomoredomains.monster',
-  'http://jackyapa6eu.students.nomoredomains.monster',
+  'http://movies-explorer.jackyapa6eu.students.nomoredomains.monster',
+  'https://movies-explorer.jackyapa6eu.students.nomoredomains.monster',
   'http://localhost:3000',
   'http://localhost:3001',
 ];
