@@ -2,6 +2,14 @@ const mongoose = require('mongoose');
 // const validator = require('validator');
 
 const movieSchema = new mongoose.Schema({
+  created_at: {
+    type: String,
+    required: true,
+  },
+  updated_at: {
+    type: String,
+    required: true,
+  },
   country: {
     type: String,
     required: true,
@@ -26,6 +34,10 @@ const movieSchema = new mongoose.Schema({
     minlength: 2,
   },
   image: {
+    type: Object,
+    required: true,
+  },
+  trailerLink: {
     type: String,
     required: true,
     validate: {
@@ -36,29 +48,7 @@ const movieSchema = new mongoose.Schema({
       message: 'not url.',
     },
   },
-  trailer: {
-    type: String,
-    required: true,
-    validate: {
-      validator(url) {
-        const regExp = /https?:\/\/w{0,3}[a-z0-9-._~:/?#[\]@!$&'()*+,;=]*#?/gi;
-        return regExp.test(url);
-      },
-      message: 'not url.',
-    },
-  },
-  thumbnail: {
-    type: String,
-    required: true,
-    validate: {
-      validator(url) {
-        const regExp = /https?:\/\/w{0,3}[a-z0-9-._~:/?#[\]@!$&'()*+,;=]*#?/gi;
-        return regExp.test(url);
-      },
-      message: 'not url.',
-    },
-  },
-  movieId: {
+  id: {
     type: Number,
     required: true,
   },

@@ -8,15 +8,16 @@ const {
 
 router.post('/', celebrate({
   body: Joi.object().keys({
+    updated_at: Joi.string().required(),
+    created_at: Joi.string().required(),
     country: Joi.string().required(),
     director: Joi.string().required(),
     duration: Joi.number().required(),
     year: Joi.string().required(),
     description: Joi.string().required(),
-    image: Joi.string().required().pattern(/https?:\/\/w{0,3}[a-z0-9-._~:/?#[\]@!$&'()*+,;=]*#?/),
-    trailer: Joi.string().required().pattern(/https?:\/\/w{0,3}[a-z0-9-._~:/?#[\]@!$&'()*+,;=]*#?/),
-    thumbnail: Joi.string().required().pattern(/https?:\/\/w{0,3}[a-z0-9-._~:/?#[\]@!$&'()*+,;=]*#?/),
-    movieId: Joi.number().required(),
+    image: Joi.object().required(),
+    trailerLink: Joi.string().required().pattern(/https?:\/\/w{0,3}[a-z0-9-._~:/?#[\]@!$&'()*+,;=]*#?/),
+    id: Joi.number().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
   }),
