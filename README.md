@@ -1,8 +1,14 @@
 ## Бэкэнд дипломной работы студента Денисова Евгения группы 16-darkblue  
-Фронтэнд проекта находится [здесь](https://github.com/jackyapa6eu/movies-explorer-frontend)
+
 
 ## Технологии  
-Работа написана на Node.js, с использованием express, celebrate, cors, mongoose, validator, bcrypt и пр.  
+- Node.js
+- express 
+- celebrate 
+- cors
+- mongoose
+- validator
+- bcrypt 
 
 ## Установка MongoDB (необходимо для создания бд на локальной машине)
 <details>
