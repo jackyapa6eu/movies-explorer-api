@@ -67,10 +67,12 @@ xcode-select --install
   
 </details>
 
-## Локальный запуск:  
-1. Клонировать репозиторий командой: git clone https://github.com/jackyapa6eu/movies-explorer-api.git  
-2. Установить необходимые пакеты команды: npm install  
-3. Запустить приложение: npm run start или npm run dev (второй вариант с hotreload)  
+## Сборка:  
+1. `git clone https://github.com/jackyapa6eu/movies-explorer-api.git`  
+2. `npm install`  
+3. `npm run start` или `npm run dev`
+
+## Статус проекта: завершен
 
 
 
