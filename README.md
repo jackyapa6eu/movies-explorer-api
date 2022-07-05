@@ -67,10 +67,16 @@ xcode-select --install
   
 </details>
 
-## Сборка:  
-1. `git clone https://github.com/jackyapa6eu/movies-explorer-api.git`  
-2. `npm install`  
-3. `npm run start` или `npm run dev`
+## Установка проекта:  
+```
+git clone https://github.com/jackyapa6eu/movies-explorer-api.git
+cd movies-explorer-api
+npm install 
+```
+## Запуск
+```
+npm run start
+```
 
 ## Статус проекта: завершен
 
